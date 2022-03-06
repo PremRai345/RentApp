@@ -8,6 +8,7 @@ class GeneralTextField extends StatefulWidget {
     required this.textInputType,
     required this.textInputAction,
     required this.validate,
+    required this.onFieldSubmitted,
     this.isObscure = false,
     Key? key,
     this.maxLength,
@@ -22,6 +23,7 @@ class GeneralTextField extends StatefulWidget {
   final TextInputAction textInputAction;
   final List<TextInputFormatter>? inputFormatter;
   final String? Function(String?)? validate;
+  final void Function(String)? onFieldSubmitted;
 
   @override
   State<GeneralTextField> createState() => _GeneralTextFieldState();
@@ -64,6 +66,7 @@ class _GeneralTextFieldState extends State<GeneralTextField> {
       inputFormatters: widget.inputFormatter,
       maxLength: widget.maxLength,
       validator: widget.validate,
+      onFieldSubmitted: widget.onFieldSubmitted,
     );
   }
 }

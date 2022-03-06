@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class GeneralAlertDialog {
-  customAlertDialog(BuildContext context, String message) {
-    showDialog(
+  customAlertDialog(BuildContext context, String message) async {
+    await showDialog(
       context: context,
       builder: (_) => AlertDialog(
         title: Text("Error"),

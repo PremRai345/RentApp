@@ -6,7 +6,7 @@ import 'package:rent_app/utils/size_config.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
   runApp(
     const MyApp(),
   );
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       SizeConfig().init(constraints);
       return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Rent App',
         theme: lightTheme(context),
         home: LoginScreen(),
       );
