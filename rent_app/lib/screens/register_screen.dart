@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rent_app/constants/constants.dart';
-
 import 'package:rent_app/utils/size_config.dart';
 import 'package:rent_app/utils/validation_mixin.dart';
 import 'package:rent_app/widgets/general_alert_dialog.dart';
@@ -21,6 +20,7 @@ class RegisterScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Register"),
       ),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: basePadding,
         child: SingleChildScrollView(

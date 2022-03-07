@@ -3,8 +3,8 @@ import '/utils/size_config.dart';
 
 ThemeData lightTheme(BuildContext context) {
   return ThemeData(
-    primaryColor: Colors.blue,
-    scaffoldBackgroundColor: Colors.white,
+    primaryColor: Colors.red,
+    scaffoldBackgroundColor: Colors.red,
     iconTheme: const IconThemeData(color: Colors.blue),
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.red,
@@ -12,6 +12,7 @@ ThemeData lightTheme(BuildContext context) {
         color: Colors.white,
         fontSize: SizeConfig.width * 4,
       ),
+      elevation: 0,
     ),
     textTheme: const TextTheme(
       headline5: TextStyle(

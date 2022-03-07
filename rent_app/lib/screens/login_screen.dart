@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rent_app/constants/constants.dart';
-
+import 'package:rent_app/models/firebase_user.dart';
 import 'package:rent_app/screens/home_screen.dart';
 import 'package:rent_app/screens/register_screen.dart';
 import 'package:rent_app/utils/size_config.dart';
@@ -23,6 +23,7 @@ class LoginScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Login"),
       ),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: basePadding,
         child: SingleChildScrollView(
@@ -97,8 +98,17 @@ class LoginScreen extends StatelessWidget {
       }
       final firebaseAuth = FirebaseAuth.instance;
       GeneralAlertDialog().customLoadingDialog(context);
-      await firebaseAuth.signInWithEmailAndPassword(
+      final userCredential = await firebaseAuth.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
+      final user = userCredential.user;
+      if (user != null) {
+        FirebaseUser(
+          displayName: user.displayName ?? "",
+          email: user.email ?? "",
+          photoUrl: user.photoURL ?? "",
+          uuid: user.uid,
+        );
+      }
       Navigator.pop(context);
       Navigator.pushReplacement(
         context,
