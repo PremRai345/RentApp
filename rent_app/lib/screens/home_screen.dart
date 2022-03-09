@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rent_app/constants/constants.dart';
+import 'package:rent_app/providers/user_provider.dart';
 import 'package:rent_app/screens/profile_screen.dart';
 import 'package:rent_app/utils/navigate.dart';
 import 'package:rent_app/utils/size_config.dart';
@@ -9,7 +11,7 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   final image =
-      "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80";
+      "https://resize.indiatvnews.com/en/resize/newbucket/1200_-/2020/07/shiva-1594171271.jpg";
 
   @override
   Widget build(BuildContext context) {
@@ -20,21 +22,21 @@ class HomeScreen extends StatelessWidget {
       drawer: Drawer(
           child: Column(
         children: [
-          UserAccountsDrawerHeader(
-            accountName: const Text("Prem"),
-            accountEmail: const Text(
-              "prem@gmail.com",
-            ),
-            currentAccountPicture: Hero(
-              tag: "image-url",
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(image),
+          Consumer<UserProvider>(builder: (_, data, __) {
+            // data.
+            return UserAccountsDrawerHeader(
+              accountName: Text(data.user.name ?? "No Name"),
+              accountEmail: Text(
+                data.user.email ?? "No Email",
               ),
-            ),
-            // currentAccountPictureSize: Size.fromHeight(
-            //   SizeConfig.height * 5,
-            // ),
-          ),
+              currentAccountPicture: Hero(
+                tag: "image-url",
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(data.user.image ?? image),
+                ),
+              ),
+            );
+          }),
           ListTile(
             title: const Text("Profile"),
             trailing: const Icon(
