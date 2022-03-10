@@ -40,16 +40,21 @@ class ProfileScreen extends StatelessWidget {
             children: [
               Hero(
                 tag: "image-url",
-                child: CircleAvatar(
-                  backgroundImage:
-                      profileData.image == null ? NetworkImage(imageUrl) : null,
-                  child: profileData.image != null
-                      ? Image.memory(
-                          base64Decode(profileData.image!),
-                          fit: BoxFit.cover,
-                        )
-                      : null,
-                  radius: SizeConfig.height * 8,
+                child: SizedBox(
+                  height: SizeConfig.height * 16,
+                  width: SizeConfig.height * 16,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(SizeConfig.height * 8),
+                    child: profileData.image == null
+                        ? Image.network(
+                            imageUrl,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.memory(
+                            base64Decode(profileData.image!),
+                            fit: BoxFit.cover,
+                          ),
+                  ),
                 ),
               ),
               SizedBox(
@@ -102,6 +107,7 @@ class ProfileScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () async {
                   await showBottomSheet(context);
+                  // if (map.isNotEmpty) {}
                 },
                 child: const Text("Choose Image"),
               ),
@@ -152,48 +158,50 @@ class ProfileScreen extends StatelessWidget {
 
   Future<void> showBottomSheet(BuildContext context) async {
     final imagePicker = ImagePicker();
+
     await showModalBottomSheet(
-        context: context,
-        builder: (_) => Padding(
-              padding: basePadding,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "Choose a source",
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  SizedBox(
-                    height: SizeConfig.height * 2,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      buildChooseOptions(
-                        context,
-                        func: () async {
-                          final xFile = await imagePicker.pickImage(
-                              source: ImageSource.camera);
-                          if (xFile != null) {
-                            final unit8list = await xFile.readAsBytes();
-                            Provider.of<UserProvider>(context, listen: false)
-                                .updateUserImage(base64Encode(unit8list));
-                          }
-                        },
-                        iconData: Icons.camera_outlined,
-                        label: "Camera",
-                      ),
-                      buildChooseOptions(
-                        context,
-                        func: () {},
-                        iconData: Icons.collections_outlined,
-                        label: "Gallery",
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ));
+      context: context,
+      builder: (_) => Padding(
+        padding: basePadding,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              "Choose a source",
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            SizedBox(
+              height: SizeConfig.height * 2,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                buildChooseOptions(
+                  context,
+                  func: () async {
+                    final xFile =
+                        await imagePicker.pickImage(source: ImageSource.camera);
+                    if (xFile != null) {
+                      final unit8list = await xFile.readAsBytes();
+                      Provider.of<UserProvider>(context, listen: false)
+                          .updateUserImage(base64Encode(unit8list));
+                    }
+                  },
+                  iconData: Icons.camera_outlined,
+                  label: "Camera",
+                ),
+                buildChooseOptions(
+                  context,
+                  func: () {},
+                  iconData: Icons.collections_outlined,
+                  label: "Gallery",
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   Column buildChooseOptions(

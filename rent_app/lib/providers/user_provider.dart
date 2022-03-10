@@ -19,7 +19,7 @@ class UserProvider extends ChangeNotifier {
       name: name,
       address: address,
       age: age,
-      image: null,
+      image: _user.image,
       photoUrl: null,
     );
     notifyListeners();
@@ -29,5 +29,8 @@ class UserProvider extends ChangeNotifier {
   updateUserImage(String image) {
     _user.image = image;
     notifyListeners();
+    // return {
+    //   "image": _user.image,
+    // };
   }
 }
