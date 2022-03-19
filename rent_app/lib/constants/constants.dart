@@ -15,3 +15,35 @@ class UserConstants {
   static const userCollection = "user";
   static const userId = "uuid";
 }
+
+class UtilitiesPriceConstant {
+  static const utilityPriceCollection = "utilities-price";
+  static const userId = "uuid";
+}
+
+class RoomConstant {
+  static const roomCollection = "room";
+  static const userId = "uuid";
+}
+
+class RoomRentConstant {
+  static const roomRentCollection = "room-rent";
+  static const roomId = "roomId";
+}
+
+class MonthConstant {
+  static const monthList = [
+    "Baisakh",
+    "Jestha",
+    "Ashar",
+    "Sharwan",
+    "Bhadra",
+    "Ashoj",
+    "Kartik",
+    "Mangsir",
+    "Poush",
+    "Magh",
+    "Falgun",
+    "Chaitra"
+  ];
+}

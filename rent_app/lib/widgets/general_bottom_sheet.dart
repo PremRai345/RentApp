@@ -1,9 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class GeneralBottomSheet {
-  customBottomSheet(BuildContext context) async {
-    final todoController = TextEditingController();
+  customBottomSheet(BuildContext context, {String? roomName}) async {
+    final nameController = TextEditingController();
+    if (roomName != null) {
+      nameController.text = roomName;
+    }
     return await showModalBottomSheet(
       context: context,
       builder: (_) {
@@ -18,9 +20,9 @@ class GeneralBottomSheet {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                controller: todoController,
+                controller: nameController,
                 decoration: InputDecoration(
-                  hintText: "Enter a todo",
+                  hintText: "Enter room name",
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(
                       15,
@@ -38,9 +40,9 @@ class GeneralBottomSheet {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).pop(todoController.text);
+                  Navigator.of(context).pop(nameController.text);
                 },
-                child: const Text("Add"),
+                child: Text(roomName != null ? "Update" : "Add"),
               ),
             ],
           ),

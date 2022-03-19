@@ -1,7 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rent_app/providers/room_provider.dart';
+import 'package:rent_app/providers/room_rent_provider.dart';
 import 'package:rent_app/providers/user_provider.dart';
+import 'package:rent_app/providers/utilities_price_provider.dart';
 import 'package:rent_app/screens/login_screen.dart';
 import 'package:rent_app/theme/theme_data.dart';
 import 'package:rent_app/utils/size_config.dart';
@@ -25,15 +28,26 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => UserProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => UtilitiesPriceProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => RoomProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => RoomRentProvider(),
+        ),
       ],
-      child: LayoutBuilder(builder: (context, constraints) {
-        SizeConfig().init(constraints);
-        return MaterialApp(
-          title: 'Rent App',
-          theme: lightTheme(context),
-          home: LoginScreen(),
-        );
-      }),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          SizeConfig().init(constraints);
+          return MaterialApp(
+            title: 'Rent App',
+            theme: lightTheme(context),
+            home: LoginScreen(),
+          );
+        },
+      ),
     );
   }
 }

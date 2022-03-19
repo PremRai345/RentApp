@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_app/constants/constants.dart';
 import 'package:rent_app/providers/user_provider.dart';
+import 'package:rent_app/utils/firebase_helper.dart';
 import 'package:rent_app/utils/size_config.dart';
 import 'package:rent_app/utils/validation_mixin.dart';
 import 'package:rent_app/widgets/curved_body_widget.dart';
@@ -118,7 +119,6 @@ class ProfileScreen extends StatelessWidget {
                 onPressed: () async {
                   if (formKey.currentState!.validate()) {
                     try {
-                      GeneralAlertDialog().customLoadingDialog(context);
                       final map =
                           Provider.of<UserProvider>(context, listen: false)
                               .updateUser(
@@ -126,25 +126,18 @@ class ProfileScreen extends StatelessWidget {
                         address: addressController.text,
                         age: int.parse(ageController.text),
                       );
-                      final fireStore = FirebaseFirestore.instance;
-                      final data = await fireStore
-                          .collection(UserConstants.userCollection)
-                          .where(UserConstants.userId,
-                              isEqualTo: profileData.uuid)
-                          .get();
-                      if (data.docs.isEmpty) {
-                        await fireStore
-                            .collection(UserConstants.userCollection)
-                            .add(map);
-                      } else {
-                        data.docs.first.reference.update(map);
-                      }
-                      Navigator.pop(context);
+                      await FirebaseHelper().addOrUpdateContent(
+                        context,
+                        collectionId: UserConstants.userCollection,
+                        whereId: UserConstants.userId,
+                        whereValue: profileData.uuid,
+                        map: map,
+                      );
                       Navigator.pop(context);
                     } catch (ex) {
-                      Navigator.pop(context);
+                      GeneralAlertDialog()
+                          .customAlertDialog(context, ex.toString());
                     }
-                    // print(map);
                   }
                 },
                 child: Text("Save"),
