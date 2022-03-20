@@ -40,6 +40,10 @@ dependencies:
   cloud_firestore: ^3.1.10
   image_picker: ^0.8.4+10
   fluttertoast: ^8.0.9
+  pdf: ^3.7.2
+  path_provider: ^2.0.9
+  intl: ^0.17.0
+  open_file: ^3.2.1
 
 dev_dependencies:
   flutter_test:

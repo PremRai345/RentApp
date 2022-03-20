@@ -9,6 +9,7 @@ var basePadding = EdgeInsets.symmetric(
 class ImageConstants {
   static const _basePath = "assets/images";
   static const logo = "$_basePath/login.jpg";
+  static const pdfDownload = "$_basePath/pdf_download.png";
 }
 
 class UserConstants {

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rent_app/constants/constants.dart';
 import 'package:rent_app/models/room.dart';
 import 'package:rent_app/models/room_rent.dart';
 import 'package:rent_app/providers/room_rent_provider.dart';
+import 'package:rent_app/utils/pdf_helper.dart';
 import 'package:rent_app/utils/size_config.dart';
 import 'package:rent_app/utils/validation_mixin.dart';
 import 'package:rent_app/widgets/curved_body_widget.dart';
@@ -21,6 +23,23 @@ class RentHistoryScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(model.month),
+        actions: [
+          InkWell(
+            onTap: () async {
+              final helper = PdfHelper();
+              final pdf = helper.createPdf(context, model: model);
+              await helper.savePdf(pdf: pdf, month: model.month);
+            },
+            child: Container(
+              margin: EdgeInsets.only(right: SizeConfig.width * 2),
+              child: Image.asset(
+                ImageConstants.pdfDownload,
+                height: SizeConfig.height,
+                width: SizeConfig.width * 10,
+              ),
+            ),
+          ),
+        ],
       ),
       body: CurvedBodyWidget(
         widget: Padding(
@@ -49,7 +68,7 @@ class RentHistoryScreen extends StatelessWidget {
                         tableRow.buildTableSpacer(context),
                         tableRow.buildTableRow(
                           context,
-                          title: "Electricity Units USed",
+                          title: "Electricity Units Used",
                           amount: model.electricityUnits,
                         ),
                         tableRow.buildTableSpacer(context),
