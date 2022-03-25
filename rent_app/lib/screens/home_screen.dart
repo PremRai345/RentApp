@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rent_app/constants/constants.dart';
 import 'package:rent_app/providers/room_provider.dart';
 import 'package:rent_app/providers/user_provider.dart';
 import 'package:rent_app/screens/list_room_screen.dart';
 import 'package:rent_app/screens/profile_screen.dart';
 import 'package:rent_app/screens/room_screen.dart';
+import 'package:rent_app/screens/finger_print_auth_screen.dart';
 import 'package:rent_app/screens/utilities_price_screen.dart';
 import 'package:rent_app/utils/navigate.dart';
 import 'package:rent_app/utils/size_config.dart';
@@ -104,7 +104,10 @@ class HomeScreen extends StatelessWidget {
           buildListTile(
             context,
             label: "List of Rooms",
-            widget: ListRoomScreen(),
+            widget: const ListRoomScreen(),
+          ),
+          SizedBox(
+            height: SizeConfig.height,
           ),
         ],
       )),
